@@ -1,0 +1,48 @@
+REFERENCE:
+Installation: https://dtflaneur.wordpress.com/2015/10/02/installing-hadoop-on-mac-osx-el-capitan/
+Property: https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html#Pseudo-Distributed_Operation
+Eg: https://dzone.com/articles/word-count-hello-word-program-in-mapreduce
+
+Test:
+hadoop jar /usr/local/Cellar/hadoop/3.0.0/libexec/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.3.jar pi 2 5
+
+FORMAT: hdfs namenode -format
+
+START HADOOP: start-all.sh
+cd /usr/local/Cellar/hadoop/3.0.0/sbin
+./start-dfs.sh
+./start-yarn.sh
+
+STOP HADOOP:
+cd /usr/local/Cellar/hadoop/3.0.0/sbin
+./stop-yarn.sh
+./stop-dfs.sh
+
+URLs:
+Resource Manager: http://localhost:9870
+JobTracker: http://localhost:8088/
+Node Specific Info: http://localhost:8042/
+
+Commands:
+$ jps
+$ yarn
+$ mapred
+
+Testing Example:
+
+1. Create a folder in hdfs filesystem and put text into it
+$ bin/hdfs dfs -mkdir /user
+
+
+For Apache-Spark:
+
+brew install apache-spark
+
+In .bash_profile add the following,
+
+export HADOOP_HOME=/usr/local/Cellar/hadoop/3.0.0/libexec
+# added for spark
+export SPARK_HOME="/usr/local/Cellar/spark"
+export PYSPARK_SUBMIT_ARGS="--master local[2]"
+# Make pyspark available anywhere
+export PATH="$SPARK_HOME/bin:$PATH"
