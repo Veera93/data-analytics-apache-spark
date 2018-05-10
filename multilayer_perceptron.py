@@ -22,7 +22,7 @@ from pyspark.ml.classification import MultilayerPerceptronClassifier
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 # $example off$
 from pyspark.sql import SparkSession
-
+import sys
 if __name__ == "__main__":
     spark = SparkSession\
         .builder.appName("multilayer_perceptron_text").getOrCreate()
@@ -30,7 +30,7 @@ if __name__ == "__main__":
     # $example on$
     # Load training data
     data = spark.read.format("libsvm")\
-        .load("input_vector.txt")
+        .load(sys.argv[1])
     print("------------------------------")
     print(data)
     # Split the data into train and test

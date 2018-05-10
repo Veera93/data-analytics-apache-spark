@@ -22,6 +22,7 @@ from pyspark.ml.classification import NaiveBayes
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 # $example off$
 from pyspark.sql import SparkSession
+import sys
 
 if __name__ == "__main__":
     spark = SparkSession\
@@ -32,10 +33,10 @@ if __name__ == "__main__":
     # $example on$
     # Load training data
     data = spark.read.format("libsvm") \
-        .load("input_vector.txt")
+        .load(sys.argv[1])
 
     # Split the data into train and test
-    splits = data.randomSplit([0.6, 0.4], 1234)
+    splits = data.randomSplit([0.8, 0.2], 1234)
     train = splits[0]
     test = splits[1]
 
