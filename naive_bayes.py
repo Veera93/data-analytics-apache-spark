@@ -57,4 +57,11 @@ if __name__ == "__main__":
     print("Test set accuracy = " + str(accuracy))
     # $example off$
 
+    if sys.argv[2] == "Test":
+        classify_file = spark.read.format("libsvm") \
+            .load(sys.argv[3])
+        predictions = model.transform(classify_file)
+        print("Unknow data")
+        predictions.show()
+
     spark.stop()

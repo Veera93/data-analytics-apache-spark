@@ -15,12 +15,12 @@ from nltk.stem.porter import *
 
 import sys
 
-APP_NAME = "Hello world"
+APP_NAME = "Word Count"
 
 
 def word_count(sc, base_location, folder_names):
 
-    features = set([])
+    features = set()
 
     for folder_name in folder_names:
         textRDD = sc.textFile(base_location+folder_name)
@@ -31,7 +31,6 @@ def word_count(sc, base_location, folder_names):
         punctuation = string.punctuation
 
         words = textRDD.flatMap(lambda s: word_tokenize(s.lower()))
-        #words = textRDD.flatMap(lambda s: RegexpTokenizer('\w+').tokenize(s.lower()))
 
         stems = words.map(lambda w: stemmer.stem(w))\
             .filter(lambda p: p not in punctuation)\
@@ -42,17 +41,11 @@ def word_count(sc, base_location, folder_names):
         wordcount = stems.reduceByKey(add).sortBy(lambda a: a[1], ascending=False).take(40)
         for (word, count) in wordcount:
             features.add(word)
-            print("%s\t%d" % (word, count))
 
-        orig_stdout = sys.stdout
-        f = open(folder_name+'.txt', 'w')
-        sys.stdout = f
+    feature_file = sc.parallelize(features)
+    feature_file.coalesce(1).saveAsTextFile("features")
+    print(features)
 
-        for (word, count) in wordcount:
-            print("%s\t%d" % (word, count))
-
-        sys.stdout = orig_stdout
-        f.close()
     return features
 
 def extract_feature(sc, base_location, folder_names, features):
@@ -99,9 +92,6 @@ if __name__ == "__main__":
     folder_names.append(sys.argv[5])
 
     features = word_count(sc, base_location, folder_names)
-    #print("Outside word_count")
-    #features = ["inning", "coach", "help", "execut", "becaus", "trade", "veri", "world", "go", "onli", "thank", "ela", "busi", "treatment", "uma", "tax", "senat", "hit", "get", "food", "financi", "de", "da", "game", "facebook", "know", "new", "report", "amp", "republican", "investor", "day", "bank", "wsj", "democrat", "secretari", "team", "dodger", "manag", "em", "right", "deal", "back", "rate", "expect", "year", "patient", "lead", "research", "state", "health", "got", "accord", "run", "million", "que", "let", "come", "care", "last", "drug", "thing", "american", "presid", "mani", "studi", "com", "think", "first", "clinton", "cancer", "win", "three", "governor", "market", "sander", "use", "support", "question", "two", "start", "wood", "firm", "regul", "para", "peopl", "fund", "yard", "compani", "look", "work", "second", "us", "um", "trump", "pass", "share", "player", "want", "home", "need", "end", "doctor", "make", "medic", "percent", "nyt", "field", "season", "stock", "play", "ball", "may", "befor", "plan", "bloomberg", "countri", "america", "applaus", "billion", "e", "invest", "well", "china", "time", "talk", "left"]
-    print("-----> "+str(len(features)))
     dic = dict()
 
     i = 1
@@ -110,16 +100,6 @@ if __name__ == "__main__":
         i = i + 1
 
     extract_feature(sc, base_location, folder_names, dic)
-
-    # orig_stdout = sys.stdout
-    # f = open('input_vector.txt', 'w')
-    # sys.stdout = f
-    # random.shuffle(matrix)
-    # for i in matrix:
-    #     print(i)
-    #
-    # sys.stdout = orig_stdout
-
 
 
 
