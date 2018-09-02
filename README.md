@@ -5,7 +5,7 @@
 The goal of this project is to develop a data pipeline which is capable of collecting data from New York Times and storing in in hadoop clusters. Features i.e words were extracted characterizing the category where in only the top N frequently occurring words of each category were selected to be the features. The output feature matrix was fed into the classification step where the model was trained using naive bayes and multi layered perceptron. Testing was performed using random articles and the confusion matrix was studied.
 
 ## Data Pipeline
-![Flow chart](/images/1 Data flow.png)
+![Flow chart](/images/1_Data_flow.png)
 
 ## Data Collection : 
 <b>How to run : </b> run the DataCollectionNYTimes.ipynb inside data collection folder<br><br> by providing the topic name which you are interested and folder name to save the articles (Also provide API details)
@@ -41,12 +41,12 @@ We run both the algorithms and report the results
 #### Naive Bayes
  <b>How to run : </b> spark-submit naive_bayes.py output/part-00000 Test classified/part-00000 <br>   
  <li> Naive Bayes Confusion Matrix : </li>
- ![Naive Bayes](/images/2 Confusion matrix Naive Bayes.png)
+ ![Naive Bayes](/images/2_Confusion_matrix_Naive_Bayes.png)
 
 #### Multilayer Perceptron
 <b>How to run : </b> spark-submit multilayer_perceptron.py output/part-00000 Test classified/part-00000 <br>
  <li> Multilayer Perceptron Confusion Matrix : </li>
- ![Perceptron](/images/3 Confusion Matrix Multi layered.png)
+ ![Perceptron](/images/3_Confusion_Matrix_Multi_layered.png)
 <ul>
 
 
