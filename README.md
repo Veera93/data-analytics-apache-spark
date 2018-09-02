@@ -38,12 +38,14 @@ Save the input files in the folder and run the spark program articlefeatures.py 
 We run both the algorithms and report the results
     
 #### Naive Bayes
-<b>How to run : </b> spark-submit naive_bayes.py output/part-00000 Test classified/part-00000 <br>   
+<b>How to run : </b> spark-submit naive_bayes.py output/part-00000 Test classified/part-00000 
+
 Naive Bayes Confusion Matrix:
 ![Naive Bayes](/images/2_Confusion_matrix_Naive_Bayes.png)
 
 #### Multilayer Perceptron
-<b>How to run : </b> spark-submit multilayer_perceptron.py output/part-00000 Test classified/part-00000 <br>
+<b>How to run : </b> spark-submit multilayer_perceptron.py output/part-00000 Test classified/part-00000 
+
 Multilayer Perceptron Confusion Matrix:
 ![Perceptron](/images/3_Confusion_Matrix_Multi_layered.png)
 
