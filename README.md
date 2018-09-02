@@ -36,18 +36,16 @@ In this phase, we randomly select few article and ask our model to classify. Bas
 Save the input files in the folder and run the spark program articlefeatures.py to get the feature vector of the files and we give the input folder and feature file as input to this program<br>
 <b>How to run : </b> spark-submit articlefeatures.py input/[TextFileName].txt features/part-00000 <br> where TextFileName is the article and features/part-0000 is where the output is stored
 We run both the algorithms and report the results
-<ul>
     
 #### Naive Bayes
  <b>How to run : </b> spark-submit naive_bayes.py output/part-00000 Test classified/part-00000 <br>   
- <li> Naive Bayes Confusion Matrix : </li>
+ Naive Bayes Confusion Matrix:
  ![Naive Bayes](/images/2_Confusion_matrix_Naive_Bayes.png)
 
 #### Multilayer Perceptron
 <b>How to run : </b> spark-submit multilayer_perceptron.py output/part-00000 Test classified/part-00000 <br>
- <li> Multilayer Perceptron Confusion Matrix : </li>
- ![Perceptron](/images/3_Confusion_Matrix_Multi_layered.png)
-<ul>
+Multilayer Perceptron Confusion Matrix:
+![Perceptron](/images/3_Confusion_Matrix_Multi_layered.png)
 
 
 
